@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    .content {
+        width: 600px;
+        display: flex;
+        flex-direction: column;
+        mat-toolbar {
+            max-height: 0px;
+            transition: ease 300ms max-height;
+        }
+        mat-toolbar.opened {
+            max-height: 64px;
+        }
+        .task-add {
+            text-align: center;
+            button {
+                margin-left: 10px;
+            }
+        }
+        .task-list {
+            .task-item {
+                margin-top: 10px;
+            }
+        }
+    }
+}

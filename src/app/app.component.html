@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <div class="content">
+    <mat-toolbar [class.opened]="showTasksCount && tasks.length > 0" color="primary">
+      <span>Count of Tasks: {{tasks.length}} tasks</span>
+      <button *ngIf="showTasksCount" mat-icon-button (click)="showHideTaskCount()" color="warn">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-card class="task-add">
+      <form [formGroup]="form" anovalidate>
+        <mat-form-field>
+          <input matInput formControlName="task" placeholder="Task description">
+        </mat-form-field>
+        <button mat-raised-button [disabled]="!form.value.task" (click)="addTask()" color="primary">Add</button>
+        <button mat-raised-button (click)="showHideTaskCount()" color="primary" *ngIf="!showTasksCount">Show
+          count</button>
+      </form>
+    </mat-card>
+
+    <div *ngFor="let task of tasks; let i = index" class="task-list">
+      <mat-card class="task-item">
+        <button mat-icon-button (click)="removeTask(i)" color="warn">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <span>{{task}}</span>
+      </mat-card>
+    </div>
+  </div>
+</div>
