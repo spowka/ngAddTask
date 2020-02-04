@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +8,22 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class AppComponent {
   public tasks: string[] = [];
-  public showTasksCount: boolean = true;
 
-  public form: FormGroup = new FormGroup({
-    task: new FormControl()
-  });
+  public showTasksCount = true;
+
+  public form: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      task: ['', [Validators.required]]
+    });
+  }
 
   public addTask() {
-    if (!this.form.value.task) return;
+    if (this.form.invalid) {
+      return;
+    }
+
     this.tasks.push(this.form.value.task);
     this.form.reset();
   }
@@ -28,5 +36,4 @@ export class AppComponent {
     this.showTasksCount = !this.showTasksCount;
   }
 
-  constructor() { }
 }
